@@ -76,6 +76,10 @@ TebLocalPlannerROS::~TebLocalPlannerROS()
 void TebLocalPlannerROS::reconfigureCB(TebLocalPlannerReconfigureConfig& config, uint32_t level)
 {
   cfg_.reconfigure(config);
+  ros::NodeHandle nh("~/" + name_);
+  // create robot footprint/contour model for optimization
+  RobotFootprintModelPtr robot_model = getRobotFootprintFromParamServer(nh);
+  planner_->updateRobotModel(robot_model);
 }
 
 void TebLocalPlannerROS::initialize(std::string name, tf::TransformListener* tf, costmap_2d::Costmap2DROS* costmap_ros)
@@ -83,6 +87,7 @@ void TebLocalPlannerROS::initialize(std::string name, tf::TransformListener* tf,
   // check if the plugin is already initialized
   if(!initialized_)
   {	
+    name_ = name;
     // create Node Handle with name of plugin (as used in move_base for loading)
     ros::NodeHandle nh("~/" + name);
 	        

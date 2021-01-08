@@ -145,7 +145,8 @@ public:
                   TebVisualizationPtr visual = TebVisualizationPtr(), const ViaPointContainer* via_points = NULL);
   
   
-
+  void updateRobotModel(RobotFootprintModelPtr robot_model );
+  
   /** @name Plan a trajectory  */
   //@{
   

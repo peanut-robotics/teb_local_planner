@@ -142,7 +142,7 @@ public:
   void initialize(const TebConfig& cfg, ObstContainer* obstacles = NULL, RobotFootprintModelPtr robot_model = boost::make_shared<PointRobotFootprint>(),
                   TebVisualizationPtr visualization = TebVisualizationPtr(), const ViaPointContainer* via_points = NULL);
 
-
+  void updateRobotModel(RobotFootprintModelPtr robot_model );
 
   /** @name Plan a trajectory */
   //@{
