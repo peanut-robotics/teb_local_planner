@@ -260,7 +260,7 @@ public:
     trajectory.force_reinit_new_goal_angular = 0.5 * M_PI;
     trajectory.feasibility_check_no_poses = 5;
     trajectory.publish_feedback = false;
-    trajectory.min_resolution_collision_check_angular = M_PI;
+    trajectory.min_resolution_collision_check_angular = 0.085; // ~5 deg
     trajectory.control_look_ahead_poses = 1;
     
     // Robot

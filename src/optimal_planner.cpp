@@ -1287,14 +1287,20 @@ bool TebOptimalPlanner::isTrajectoryFeasible(base_local_planner::CostmapModel* c
           intermediate_pose.position() = intermediate_pose.position() + delta_dist / (n_additional_samples + 1.0);
           intermediate_pose.theta() = g2o::normalize_theta(intermediate_pose.theta() + 
                                                            delta_rot / (n_additional_samples + 1.0));
-          if ( costmap_model->footprintCost(intermediate_pose.x(), intermediate_pose.y(), intermediate_pose.theta(),
-            footprint_spec, inscribed_radius, circumscribed_radius) == -1 )
+          int cost = costmap_model->footprintCost(intermediate_pose.x(), intermediate_pose.y(), intermediate_pose.theta(),
+            footprint_spec, inscribed_radius, circumscribed_radius);
+
+          if ( cost == -1 )
           {
             if (visualization_) 
             {
               visualization_->publishInfeasibleRobotPose(intermediate_pose, *robot_model_);
             }
             return false;
+          }
+          else
+          {
+            visualization_->publishRobotFootprintModel(intermediate_pose, *robot_model_, "RobotFootprintModel", visualization_->toColorMsg(0.5, 0.0, 0.0, 0.8));
           }
         }
       }

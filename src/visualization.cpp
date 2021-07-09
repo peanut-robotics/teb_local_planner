@@ -130,7 +130,8 @@ void TebVisualization::publishRobotFootprintModel(const PoseSE2& current_pose, c
   if (markers.empty())
     return;
   
-  int idx = 1000000;  // avoid overshadowing by obstacles
+  // int idx = 1000000;  // avoid overshadowing by obstacles
+  int idx = rand()%1000000;
   for (std::vector<visualization_msgs::Marker>::iterator marker_it = markers.begin(); marker_it != markers.end(); ++marker_it, ++idx)
   {
     marker_it->header.frame_id = cfg_->map_frame;
