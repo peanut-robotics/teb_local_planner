@@ -410,6 +410,9 @@ bool TimedElasticBand::initTrajectoryToGoal(const std::vector<geometry_msgs::Pos
             // get yaw from the orientation of the distance vector between pose_{i+1} and pose_{i}
             double dx = plan[i+1].pose.position.x - plan[i].pose.position.x;
             double dy = plan[i+1].pose.position.y - plan[i].pose.position.y;
+            if (dx < 0.001 && dy < 0.001) //Skip orientations derived from very small adjustments.
+              continue;
+      
             yaw = std::atan2(dy,dx);
             if (backwards)
                 yaw = g2o::normalize_theta(yaw+M_PI);
